@@ -49,6 +49,6 @@ class Engine {
     private <T> Map<T, BigDecimal> getGroupedUsdAmountPerOperationType(List<Instruction> instructions, Predicate<Instruction> instructionType, Function<Instruction, T> toGroupKey) {
         return instructions.stream()
                 .filter(instructionType)
-                .collect(groupingBy(toGroupKey, reducing(BigDecimal.ZERO, Instruction::getUsdAmount, (a, b) -> a.add(b, MathContext.UNLIMITED))));
+                .collect(groupingBy(toGroupKey, reducing(BigDecimal.ZERO, Instruction::getUsdAmount, BigDecimal::add)));
     }
 }
